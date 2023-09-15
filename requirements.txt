@@ -7,7 +7,7 @@ CacheControl==0.12.11
 certifi==2022.9.24
 cffi==1.15.1
 channels==4.0.0
-django==3.2.14;
+django
 charset-normalizer==2.1.1
 cleo==2.0.1
 colorama==0.4.6
