@@ -7,6 +7,7 @@ CacheControl==0.12.11
 certifi==2022.9.24
 cffi==1.15.1
 channels==4.0.0
+django==3.2.14;
 charset-normalizer==2.1.1
 cleo==2.0.1
 colorama==0.4.6
@@ -14,8 +15,7 @@ contourpy==1.0.7
 crashtest==0.4.1
 asgiref==3.5.2; 
 dj-database-url==0.5.0;
-django-dotenv==1.4.2;
-django==3.2.14; 
+django-dotenv==1.4.2; 
 gunicorn==20.1.0; 
 psycopg2-binary==2.9.3; 
 pytz==2022.1; 
@@ -25,7 +25,6 @@ cryptography==38.0.1
 cycler==0.11.0
 defusedxml==0.7.1
 distlib==0.3.6
-Django==4.1.7
 django-admin-inline-paginator==0.3.0
 django-appconf==1.0.5
 django-crispy-forms==2.0
