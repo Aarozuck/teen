@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <section>
+    <div class="lgp-hd">
+        <h2><strong>login</strong></h2>
+    </div>
+    <div class="container login-cont">
+        <div class="row">
+            <div class="col-10 col-sm-6 col-md-4 col-lg-4 offset-1 offset-sm-3 offset-md-4 offset-lg-4 login-col" style="width: 284px;height: 398px;"><i class="icon ion-lock-combination"></i>
+                <form class="login-form" method="post">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <div class="form-group"><button class="btn btn-light login-btn" data-bs-hover-animate="pulse" type="submit" style="background-color: rgb(26, 91, 175);"><strong>Login</strong></button></div>
+
+                </form>
+                <a href="{% url 'register'%}">Create an account</a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

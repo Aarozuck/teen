@@ -1,0 +1,179 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+    /* Global Styles */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Feed Card Styles */
+    .feed-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      max-width: 600px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .feed-card .profile-picture {
+      border-radius: 50%;
+      height: 40px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 40px;
+      z-index: 2;
+    }
+
+    .feed-card .username {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 4px;
+      color: #000000;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 4px;
+      position: absolute;
+      top: 10px;
+      left: 60px;
+      z-index: 2;
+    }
+
+    .feed-card .follow-button {
+      background-color: #ff3d00;
+      border: none;
+      border-radius: 20px;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 8px 16px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+    }
+
+    .feed-card .post {
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .feed-card .post img,
+    .feed-card .post video {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .feed-card .post .caption {
+      margin-top: 16px;
+    }
+
+    .feed-card .post .like-button,
+    .feed-card .post .comment-button,
+    .feed-card .post .dislike-button {
+      background-color: transparent;
+      border: none;
+      color: #888888;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 8px;
+    }
+
+    .feed-card .post .like-button.active {
+      color: #ff0000;
+    }
+  .heart-animation {
+      position: absolute;
+      top: 100%;
+      left: 100%;
+      transform: translate(-50%, -50%);
+      animation: heartAnimation 0.5s ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes heartAnimation {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(5);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 1;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+{% for post in posts %}
+  <div class="feed-card">
+    <img class="profile-picture" src="{{post.user.profile.profile_picture.url }}" alt="Profile Picture">
+    <div class="username">{{ post.user.username }}</div>
+    <form action="{% url 'follow' post.user.id %}" method="POST">
+        {% csrf_token %}
+        <button class="follow-button" type="submit">Follow</button>
+      </form>
+    
+    <div class="post">
+        {% if post.image %}
+        <img src="{{ post.image.url }}"alt="Post Image" ondblclick="showHeartAnimation(event)">
+                 {% endif %}
+            {% if post.video %}
+                    <video src="{{ post.video.url }}"  ondblclick="showHeartAnimation(event)" controls style="height: 500px; width: 300px;"></video>
+                </div>
+            {% endif %}
+      
+      <!-- Uncomment the following line if using videos -->
+      <!--  -->
+      <div class="caption">{{post.content}}</div>
+
+      <div class="button like-button">
+        <form method="post" action="{% url 'like_post' post.id %}">
+            {% csrf_token %}
+            <button class="like-button"onclick="showHeartAnimation(event)">❤ {{ post.likes.count }}</button>
+        </form>   
+        <a href="{% url 'add_comment' post.id %}"><button class="comment-button" >Comments</button></a>
+
+        <form method="post" action="{% url 'dislike_post' post.id %}">
+            {% csrf_token %}
+            <button class="dislike-button" type="submit">Dislike {{ post.dislikes.count }}</button>
+            <hr>
+        </form>
+    </div>
+      
+    
+      
+    </div>
+    <div class="heart-animation"></div>
+  </div>
+  {% endfor %} 
+  <script>
+  function showHeartAnimation(event) {
+      const x = event.clientX;
+      const y = event.clientY;
+
+      const heart = document.createElement('div');
+      heart.classList.add('heart-animation');
+      heart.innerHTML = '🧡';
+
+      heart.style.left = `${x}px`;
+      heart.style.top = `${y}px`;
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        document.body.removeChild(heart);
+      }, 500);
+    }
+  </script>
+
+{% endblock %}
