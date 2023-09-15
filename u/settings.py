@@ -80,6 +80,7 @@ WSGI_APPLICATION = 'u.wsgi.application'
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
 
 DATABASES = {
     'default': {
