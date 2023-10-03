@@ -6,7 +6,7 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     info = models.CharField(max_length=255, blank=True)
     phone_number = models.CharField(max_length=15, blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pictures', blank=True)
+    profile_picture = models.ImageField(blank=True)
     following = models.ManyToManyField('self', symmetrical=False, related_name='followers')
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
