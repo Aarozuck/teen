@@ -11,8 +11,8 @@ class Profile(models.Model):
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
-    image = models.ImageField(upload_to='post_images/', blank=True)
-    video = models.FileField(upload_to='post_videos/', blank=True)
+    image = models.ImageField(blank=True)
+    video = models.FileField(blank=True)
     likes = models.ManyToManyField(User, related_name='liked_posts')
     dislikes = models.ManyToManyField(User, related_name='disliked_posts')
 
